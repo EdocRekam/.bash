@@ -1,7 +1,6 @@
+# .bash
 
--*- text -*-
+This project contains my personal [Git BASH] shell configuration files and other
+stuff related to my daily activities. Feel free to copy what you like.
 
-.bash
-
-This project contains my personal BASH shell configuration files and other stuff related to my daily
-activities. Feel free to copy anything you like.
+[Git BASH]: <https://git-for-windows.github.io/>

@@ -6,15 +6,15 @@
 [difftool]
 	prompt = true
 [difftool "vsdiff"]
-	cmd = d:/programs/estart.exe VSDIFF 64 HERNE -r1 \"$LOCAL\" \"$REMOTE\"
+	cmd = estart.exe VSDIFF 64 HERNE -r1 \"$LOCAL\" \"$REMOTE\"
 	trustexitcode = false
 [difftool "vsddiff"]
-	cmd = d:/programs/estart.exe VSDDIFF 64 HERNE -t \"$LOCAL\" \"$REMOTE\"
+	cmd = estart.exe VSDDIFF 64 HERNE -t \"$LOCAL\" \"$REMOTE\"
 	trustexitcode = false
 [merge]
 	tool = vsmerge
 [mergetool "vsmerge"]
-	cmd = d:/programs/estart.exe VSMERGE 64 HERNE -smart -quiet \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+	cmd = estart.exe VSMERGE 64 HERNE -smart -quiet \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
 [push]
 	default = simple
 [core]
@@ -23,8 +23,13 @@
 [am]
 	keepcr = true
 [alias]
+        bless = !git config credential.helper wincred
 	vsddiff = difftool -t vsddiff --dir-diff
+        last = log -1 HEAD
+        ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+        tfspush = tf checkin --deep --metadata --no-lock --mentions --keep-author
+        trim = !git ls-files -mo --exclude-from=.gitignore -z | xargs -0 sani
+        unstage = reset HEAD --
         vsdiff = difftool -t vsdiff
-	pullvso = git pull vso
 [credential]
 	helper = wincred

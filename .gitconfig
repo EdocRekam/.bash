@@ -31,5 +31,6 @@
         trim = !git ls-files -mo --exclude-from=.gitignore -z | xargs -0 sani
         unstage = reset HEAD --
         vsdiff = difftool -t vsdiff
+        undo = "!f() { n=${1-1}; git reset HEAD~$n; }; f"
 [credential]
 	helper = wincred

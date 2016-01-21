@@ -9,7 +9,7 @@
 	cmd = estart.exe VSDIFF 64 HERNE -r1 \"$LOCAL\" \"$REMOTE\"
 	trustexitcode = false
 [difftool "vsddiff"]
-	cmd = estart.exe VSDDIFF 64 HERNE -t \"$LOCAL\" \"$REMOTE\"
+	cmd = estart.exe VSDIFF 64 HERNE -t \"$LOCAL\" \"$REMOTE\"
 	trustexitcode = false
 [merge]
 	tool = vsmerge

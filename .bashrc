@@ -1,4 +1,4 @@
-#!/bin/sh
+﻿#!/bin/sh
 # export PS1='\[\033[34;1m\]\u@\h:\[\033[0m\]\w\$ '
 export PS1='\u@\h:\w\$ '
 
@@ -8,12 +8,16 @@ export HISTSIZE=100
 export COLUMNS=250
 
 # Standard build commands
-alias badebug='MSBuild.exe /target:rebuild /property:Configuration=debug /property:Platform="Any CPU"'
-alias barelease='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform="Any CPU"'
+alias badebug='MSBuild.exe /target:rebuild /property:Configuration=debug /property:Platform="AnyCPU"'
+alias barelease='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform="AnyCPU"'
+alias barelease='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform="AnyCPU"'
 alias bx86debug='MSBuild.exe /target:rebuild /property:Configuration=debug /property:Platform=x86'
 alias bx86release='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform=x86'
 alias bx64debug='MSBuild.exe /target:rebuild /property:Configuration=debug /property:Platform=x64'
 alias bx64release='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform=x64'
+alias make='MSBuild.exe -m -nr:false'
 
 # Various tools
+alias restart='exec bash'
 alias slick='estart.exe SLICKEDIT 64 HERNE'
+

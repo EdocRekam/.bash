@@ -1,4 +1,4 @@
-[user]
+﻿[user]
 	name = Edoc Rekam
 	email = edoc.rekam@gmail.com
 [gui]
@@ -27,6 +27,7 @@
 	vsddiff = difftool -t vsddiff --dir-diff
         last = log -1 HEAD
         ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+        ls-same = "!git ls-tree -r HEAD | cut -c 14- | sort | uniq -D -w 40"
         tfspush = tf checkin --deep --metadata --no-lock --mentions --keep-author
         trim = !git ls-files -mo --exclude-from=.gitignore -z | xargs -0 sani
         unstage = reset HEAD --

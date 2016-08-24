@@ -32,3 +32,8 @@ vnoremap <A-Up> :m '<-2<CR>gv=gv
 inoremap <A-Down> <ESC>:m+<CR>:startinsert<CR>
 nnoremap <A-Down> :m+<CR>==
 vnoremap <A-Down> :m '>+1<CR>gv=gv
+
+" Move swp files to different locations
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//

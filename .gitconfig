@@ -9,7 +9,7 @@
 	cmd = estart.exe VSDIFF 64 HERNE -r1 \"$LOCAL\" \"$REMOTE\"
 	trustexitcode = false
 [difftool "vsddiff"]
-	cmd = estart.exe VSDIFF 64 HERNE -t \"$REMOTE\" \"$LOCAL\" 
+	cmd = estart.exe VSDIFF 64 HERNE -t \"$REMOTE\" \"$LOCAL\"
 	trustexitcode = false
 [merge]
 	tool = vsmerge
@@ -50,5 +50,16 @@
 	#   Lists all branches that have been patched into the current
 	#   branch.
 	branch-applied = "!f() { branches="$(git for-each-ref --format='%(refname)' refs/heads/ )"; for b in ${branches}; do m="$(git missing ${b})"; if [[ -z ${m} ]]; then printf '    Patched: %s\n' "${b}"; else printf 'Not Patched: %s\n' "${b}"; fi done }; f"
+
+        # Example: git blame-tests
+        #   Lists the number of lines authors have contributed to unit tests in
+        #   the last 500 commits.
+        blame-tests = "!f() { git ls-tree --name-only -r -z HEAD | egrep -z -Z -E 'Class.cs$' | xargs -0 -n1 git blame --line-porcelain | grep '^author ' |sort | uniq -c | sort -nr ; }; f"
+
+        # Example: git blame-all
+        #   Lists the number of lines authors have contributed to in all CSharp
+        #   code for the last 500 commits.
+        blame-overall = "!f() { git ls-tree --name-only -r -z HEAD | egrep -z -Z -E 'cs$' | xargs -0 -n1 git blame --line-porcelain | grep '^author ' |sort | uniq -c | sort -nr ; }; f"
+
 [credential]
 	helper = wincred

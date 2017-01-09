@@ -37,14 +37,14 @@
 	#   Print the last 20 commits in a GITK style list.
         ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%an]" --decorate -n20
 
-	# Example: git missing vso/radu/35344_3
+	# Example: git missing-show vso/radu/35344_3
 	#   Lists commits in vso/radu/35344_3 not in the current branch.
-	missing = "!f() { commits="$(git cherry HEAD $1 | grep + | cut -c 3-8)" ; [[ ! -z $commits ]] && echo git cherry-pick ${commits} ; }; f"
+	missing-show = "!f() { commits="$(git cherry HEAD $1 | grep + | cut -c 3-8)" ; [[ ! -z $commits ]] && echo git cherry-pick ${commits} ; }; f"
 
-	# Example: git apply-missing vso/radu/35344_3
+	# Example: git missing-apply vso/radu/35344_3
 	#   Cherry picks commits in vso/radu/35344_3 not in the currrent
 	#   branch.
-	apply-missing = "!f() { commits="$(git cherry HEAD $1 | grep + | cut -c 3-8)" ; [[ ! -z $commits ]] && git cherry-pick ${commits} ; }; f"
+	missing-apply = "!f() { commits="$(git cherry HEAD $1 | grep + | cut -c 3-8)" ; [[ ! -z $commits ]] && git cherry-pick ${commits} ; }; f"
 
 	# Example: git branch-applied
 	#   Lists all branches that have been patched into the current

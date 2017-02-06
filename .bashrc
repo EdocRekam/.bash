@@ -1,4 +1,3 @@
-﻿#!/bin/sh
 # export PS1='\[\033[34;1m\]\u@\h:\[\033[0m\]\w\$ '
 export PS1='\u@\h:\w\$ '
 
@@ -21,3 +20,6 @@ alias make='MSBuild.exe -m -nr:false'
 alias restart='exec bash'
 alias slick='estart.exe SLICKEDIT 64 HERNE'
 
+# Usage: trim [file]
+# Trims trailing whitespace from the end of the file.
+alias trim="sed -i 's/[[:space:]]*$//'"

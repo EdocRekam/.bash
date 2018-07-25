@@ -24,9 +24,11 @@ alias bx64debug='MSBuild.exe /target:rebuild /property:Configuration=debug /prop
 alias bx64release='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform=x64'
 
 # BASH creature comforts
+alias diff='diff -yw --suppress-common-lines'
 alias l='ls -lah --color'
 alias less='less -R'
 alias restart='exec bash'
+
 
 # Various tools
 alias slick='estart.exe SLICKEDIT 64 HERNE'

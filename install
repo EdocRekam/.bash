@@ -1,51 +1,39 @@
 #!/bin/bash
-
 # This script installs or copies all the right files to the right location.
+#
 
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
-
-copy()
+link()
 {
-	if [ $1 -ot $2 ]; then
-		echo -e Skip copying [${YELLOW}$1${NC}] -\> [${YELLOW}$2${NC}]
-		return
+	if [ -h "${2}" ]; then
+		LNKDST=$(readlink -f "${2}")
+		if [ "${1}" -ef "${LNKDST}" ]; then
+			echo -e Skip linking [${YELLOW}${1}${NC}] -\> [${YELLOW}${2}${NC}]
+			return
+		fi
 	fi
 
-	echo -e Copying [${YELLOW}$1${NC}] -\> [${YELLOW}$2${NC}]
-	cp -f $1 $2
+	if [ -f "${2}" ]; then
+		BAKFNAME=${2}.bak.${RANDOM}
+		echo -e Backup file [${YELLOW}${2}${NC}] -\> [${YELLOW}${BAKFNAME}${NC}]
+		mv "${2}" "${BAKFNAME}"
+	fi
+
+	echo -e Linking [${YELLOW}${1}${NC}] -\> [${YELLOW}${2}${NC}]
+	ln -s "${1}" "${2}"
 }
 
+mkfolder()
+{
+	if [ ! -d "${1}" ]; then
+		mkdir "${1}"
+	fi
+}
+
+CWD=$(dirname "$(realpath -s $0)")
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 clear
+read -p "Press [Enter] key to install files into HOME directory at . . ."
 
-if [ -z "$HOME" ]; then
-	echo -e Install failed: ${YELLOW}\$HOME${NC} environment variable not set.
-	exit 1
-fi
-
-if [ ! -d "$HOME" ]; then
-	echo -e Install failed: [${YELLOW}$HOME${NC}] folder was not found.
-	exit 1
-fi
-
-read -p "Press [Enter] key to install files into HOME directory at ..."
-copy .bashrc "$HOME/.bashrc"
-copy .gitconfig "$HOME/.gitconfig"
-copy .gitk "$HOME/.gitk"
-copy .vimrc "$HOME/.vimrc"
-
-if [ ! -d "$HOME/.vim" ]; then
-	mkdir "$HOME/.vim"
-fi
-
-if [ ! -d "$HOME/.vim/backup" ]; then
-	mkdir "$HOME/.vim/backup"
-fi
-
-if [ ! -d "$HOME/.vim/swap" ]; then
-	mkdir "$HOME/.vim/swap"
-fi
-
-if [ ! -d "$HOME/.vim/undo" ]; then
-	mkdir "$HOME/.vim/undo"
-fi
+link "${CWD}/.bash_profile" "${HOME}/.bash_profile"
+link "${CWD}/.bashrc" "${HOME}/.bashrc"

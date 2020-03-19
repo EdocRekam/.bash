@@ -1,5 +1,5 @@
 # This file runs once each time an interactive shell is started.
-# 
+#
 # Do:
 #    Add Aliases
 #    Set environent preferences for development
@@ -14,7 +14,7 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 export LS_OPTIONS='-la -F -b -T 0 --color=auto'
 export PS1='\u@\h:\w\$ '
 
-# MSBuild creature comforts
+# MSBuild Creature Comforts
 alias badebug='MSBuild.exe /target:rebuild /property:Configuration=debug /property:Platform="AnyCPU"'
 alias barelease='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform="AnyCPU"'
 alias barelease='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform="AnyCPU"'
@@ -22,14 +22,15 @@ alias bx86debug='MSBuild.exe /target:rebuild /property:Configuration=debug /prop
 alias bx86release='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform=x86'
 alias bx64debug='MSBuild.exe /target:rebuild /property:Configuration=debug /property:Platform=x64'
 alias bx64release='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform=x64'
+alias NuGetRestore='MSBuild.exe /target:restore /property:Configuration=release'
 
-# BASH creature comforts
+# BASH Creature Comforts
 alias diff='diff -yw --suppress-common-lines'
 alias l='ls -lah --color'
 alias less='less -R'
 alias restart='exec bash'
 
-
-# Various tools
-alias slick='estart.exe SLICKEDIT 64 HERNE'
+# Various Tools
+alias code='estart VSCODE 64 IBARAKI'
+alias slick='estart.exe SLICKEDIT 64 IBARKI'
 alias trim="sed -i 's/[[:space:]]*$//'"

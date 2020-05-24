@@ -63,6 +63,7 @@ main()
 	cat .bashrc > "${HOME}/.bashrc"
 	if [ "${OS}" == "GNU/Linux" ]; then
 		printf "Customizing Linux configuration . . . \n"
+		cat .bashrc.linux >> "${HOME}/.bashrc"
 		copy gitk "${HOME}/.config/git/gitk"
 	else
 		printf "Customizing MSys configuration . . . \n"

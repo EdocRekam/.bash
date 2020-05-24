@@ -2,23 +2,39 @@
 # This script installs or copies all the right files to the right location.
 #
 
+CWD=$(dirname "$(realpath -s $0)")
+NC='\033[0m' # No Color
+OS=`uname -o`
+YELLOW='\033[1;33m'
+
+copy()
+{
+        if [ $1 -ot $2 ]; then
+                printf "Skip copying [${YELLOW}$1${NC}] -> [${YELLOW}$2${NC}]\n"
+                return
+        fi
+
+        printf "Copying [${YELLOW}$1${NC}] -> [${YELLOW}$2${NC}]\n"
+        cp -f $1 $2
+}
+
 link()
 {
 	if [ -h "${2}" ]; then
 		LNKDST=$(readlink -f "${2}")
 		if [ "${1}" -ef "${LNKDST}" ]; then
-			echo -e Skip linking [${YELLOW}${1}${NC}] -\> [${YELLOW}${2}${NC}]
+			printf "Skip linking [${YELLOW}${1}${NC}] -\> [${YELLOW}${2}${NC}]\n"
 			return
 		fi
 	fi
 
 	if [ -f "${2}" ]; then
 		BAKFNAME=${2}.bak.${RANDOM}
-		echo -e Backup file [${YELLOW}${2}${NC}] -\> [${YELLOW}${BAKFNAME}${NC}]
+		printf "Backup file [${YELLOW}${2}${NC}] -\> [${YELLOW}${BAKFNAME}${NC}]\n"
 		mv "${2}" "${BAKFNAME}"
 	fi
 
-	echo -e Linking [${YELLOW}${1}${NC}] -\> [${YELLOW}${2}${NC}]
+	printf "Linking [${YELLOW}${1}${NC}] -\> [${YELLOW}${2}${NC}]\n"
 	ln -s "${1}" "${2}"
 }
 
@@ -29,11 +45,31 @@ mkfolder()
 	fi
 }
 
-CWD=$(dirname "$(realpath -s $0)")
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
-clear
-read -p "Press [Enter] key to install files into HOME directory at . . ."
+main()
+{
+	clear
+	read -p "Press [Enter] key to install files into HOME directory at . . ."
 
-link "${CWD}/.bash_profile" "${HOME}/.bash_profile"
-link "${CWD}/.bashrc" "${HOME}/.bashrc"
+	if [ -z "$HOME" ]; then
+		printf "Install failed: ${YELLOW}\$HOME${NC} environment variable not set.\n"
+		exit 1
+	fi
+
+	if [ ! -d "$HOME" ]; then
+		printf "Install failed: [${YELLOW}$HOME${NC}] folder was not found.\n"
+		exit 1
+	fi
+
+	cat .bashrc > "${HOME}/.bashrc"
+	if [ "${OS}" == "GNU/Linux" ]; then
+		printf "Customizing Linux configuration . . . \n"
+		copy gitk "${HOME}/.config/git/gitk"
+	else
+		printf "Customizing MSys configuration . . . \n"
+		cat .bashrc.win >> "${HOME}/.bashrc"
+	fi
+
+	link "${CWD}/.bash_profile" "${HOME}/.bash_profile"
+}
+
+main

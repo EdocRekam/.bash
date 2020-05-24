@@ -1,0 +1,13 @@
+# MSBuild Creature Comforts
+alias badebug='MSBuild.exe /target:rebuild /property:Configuration=debug /property:Platform="AnyCPU"'
+alias barelease='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform="AnyCPU"'
+alias barelease='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform="AnyCPU"'
+alias bx86debug='MSBuild.exe /target:rebuild /property:Configuration=debug /property:Platform=x86'
+alias bx86release='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform=x86'
+alias bx64debug='MSBuild.exe /target:rebuild /property:Configuration=debug /property:Platform=x64'
+alias bx64release='MSBuild.exe /target:rebuild /property:Configuration=release /property:Platform=x64'
+alias NuGetRestore='MSBuild.exe /target:restore /property:Configuration=release'
+
+# Various Tools
+alias code='estart VSCODE 64 IBARAKI'
+alias slick='estart.exe SLICKEDIT 64 IBARKI'

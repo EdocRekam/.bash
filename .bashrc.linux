@@ -1,7 +1,5 @@
 
 # LINUX SPECIFIC
 export GPG_TTY=$(tty)
-export PINENTRY_BINARY="/usr/bin/pinentry-qt5"
-
 
 alias code='codium'

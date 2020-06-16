@@ -2,4 +2,4 @@
 # LINUX SPECIFIC
 export GPG_TTY=$(tty)
 
-alias code='codium'
+code () { command gvim -geom 285x99+4800 --remote-tab-silent "$@" > /dev/null 2>&1 || command gvim -geom 285x99+4800 "$@" > /dev/null 2>&1; }

@@ -9,5 +9,5 @@ alias bx64release='MSBuild.exe /target:rebuild /property:Configuration=release /
 alias NuGetRestore='MSBuild.exe /target:restore /property:Configuration=release'
 
 # Various Tools
-code () { command estart VIM 64 IBARAKI --remote-tab-silent "$@" > /dev/null 2>&1 || command estart VIM 64 IBARAKI "$@" > /dev/null 2>&1; }
+alias code='estart VIM 64 IBARAKI'
 alias slick='estart.exe SLICKEDIT 64 IBARKI'

@@ -9,5 +9,5 @@ alias bx64release='MSBuild.exe /target:rebuild /property:Configuration=release /
 alias NuGetRestore='MSBuild.exe /target:restore /property:Configuration=release'
 
 # Various Tools
-alias code='estart VSCODE 64 IBARAKI'
+alias code='estart VIM 64 IBARAKI'
 alias slick='estart.exe SLICKEDIT 64 IBARKI'

@@ -9,68 +9,46 @@ YELLOW='\033[1;33m'
 
 copy()
 {
-        if [ $1 -ot $2 ]; then
-                printf "Skip copying [${YELLOW}$1${NC}] -> [${YELLOW}$2${NC}]\n"
-                return
-        fi
-
+    if [ ! -f "$2" ]; then
         printf "Copying [${YELLOW}$1${NC}] -> [${YELLOW}$2${NC}]\n"
-        cp -f $1 $2
-}
+        cp -f "$1" "$2"
+        return
+    fi
 
-link()
-{
-	if [ -h "${2}" ]; then
-		LNKDST=$(readlink -f "${2}")
-		if [ "${1}" -ef "${LNKDST}" ]; then
-			printf "Skip linking [${YELLOW}${1}${NC}] -\> [${YELLOW}${2}${NC}]\n"
-			return
-		fi
-	fi
+    if [ "$1" -ot "$2" ]; then
+        printf "Skip copying [${YELLOW}$1${NC}] -> [${YELLOW}$2${NC}]\n"
+        return
+    fi
 
-	if [ -f "${2}" ]; then
-		BAKFNAME=${2}.bak.${RANDOM}
-		printf "Backup file [${YELLOW}${2}${NC}] -\> [${YELLOW}${BAKFNAME}${NC}]\n"
-		mv "${2}" "${BAKFNAME}"
-	fi
-
-	printf "Linking [${YELLOW}${1}${NC}] -\> [${YELLOW}${2}${NC}]\n"
-	ln -s "${1}" "${2}"
-}
-
-mkfolder()
-{
-	if [ ! -d "${1}" ]; then
-		mkdir "${1}"
-	fi
+    printf "Copying [${YELLOW}$1${NC}] -> [${YELLOW}$2${NC}]\n"
+    cp -f "$1" "$2"
 }
 
 main()
 {
-	clear
-	read -p "Press [Enter] key to install files into HOME directory at . . ."
+    clear
+    read -p "Press [Enter] key to install files into HOME directory at . . ."
 
-	if [ -z "$HOME" ]; then
-		printf "Install failed: ${YELLOW}\$HOME${NC} environment variable not set.\n"
-		exit 1
-	fi
+    if [ -z "$HOME" ]; then
+        printf "Install failed: ${YELLOW}\$HOME${NC} environment variable not set.\n"
+        exit 1
+    fi
 
-	if [ ! -d "$HOME" ]; then
-		printf "Install failed: [${YELLOW}$HOME${NC}] folder was not found.\n"
-		exit 1
-	fi
+    if [ ! -d "$HOME" ]; then
+        printf "Install failed: [${YELLOW}$HOME${NC}] folder was not found.\n"
+        exit 1
+    fi
 
-	cat .bashrc > "${HOME}/.bashrc"
-	if [ "${OS}" == "GNU/Linux" ]; then
-		printf "Customizing Linux configuration . . . \n"
-		cat .bashrc.linux >> "${HOME}/.bashrc"
-		copy gitk "${HOME}/.config/git/gitk"
-	else
-		printf "Customizing MSys configuration . . . \n"
-		cat .bashrc.win >> "${HOME}/.bashrc"
-	fi
-
-	link "${CWD}/.bash_profile" "${HOME}/.bash_profile"
+    cat .bashrc > "${HOME}/.bashrc"
+    if [ "${OS}" == "GNU/Linux" ]; then
+        printf "Customizing Linux configuration . . . \n"
+        cat .bashrc.linux >> "${HOME}/.bashrc"
+        copy gitk "${HOME}/.config/git/gitk"
+    else
+        printf "Customizing MSys configuration . . . \n"
+        cat .bashrc.win >> "${HOME}/.bashrc"
+    fi
+    copy "${CWD}/.bash_profile" "${HOME}/.bash_profile"
 }
 
 main

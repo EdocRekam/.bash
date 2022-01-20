@@ -27,7 +27,8 @@ copy()
 main()
 {
     clear
-    read -p "Press [Enter] key to install files into HOME directory at . . ."
+    printf "Press [Enter] key to install files into HOME directory:\n"
+    read -p "    ${HOME}"
 
     if [ -z "$HOME" ]; then
         printf "Install failed: ${YELLOW}\$HOME${NC} environment variable not set.\n"
@@ -42,9 +43,11 @@ main()
     cat .bashrc > "${HOME}/.bashrc"
     if [ "${OS}" == "GNU/Linux" ]; then
         printf "Customizing Linux configuration . . . \n"
+        printf "     ${HOME}\n"
         cat .bashrc.linux >> "${HOME}/.bashrc"
     else
         printf "Customizing MSys configuration . . . \n"
+        printf "     ${HOME}\n"
         cat .bashrc.win >> "${HOME}/.bashrc"
     fi
     copy "${CWD}/.bash_profile" "${HOME}/.bash_profile"
